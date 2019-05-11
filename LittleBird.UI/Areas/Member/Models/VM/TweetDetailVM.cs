@@ -21,6 +21,9 @@ namespace LittleBird.UI.Areas.Member.Models.VM
             AppUser = new AppUser();
             Comment = new Comment();
         }
+        public int LikeCount { get; set; }
+        public int CommentCount { get; set; }
+
         public List<Comment> Comments {get; set;}
         public List<Like> Likes { get; set; }
         public List<AppUser> AppUsers { get; set; }

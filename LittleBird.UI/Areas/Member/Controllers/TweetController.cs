@@ -1,6 +1,7 @@
 ﻿using LittleBird.Model.Option;
 using LittleBird.Service.Option;
 using LittleBird.UI.Areas.Member.Models.DTO;
+using LittleBird.UI.Areas.Member.Models.VM;
 using LittleBird.Utility;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,7 @@ namespace LittleBird.UI.Areas.Member.Controllers
             data.PublishDate = DateTime.Now;
 
             _tweetService.Add(data);
+
             return Redirect("/Member/Tweet/List");
 
 
@@ -121,6 +123,18 @@ namespace LittleBird.UI.Areas.Member.Controllers
         {
             _tweetService.Remove(id);
             return Redirect("/Author/Article/List");
+        }
+        public ActionResult Show(Guid id)
+        {
+            TweetDetailVM model = new TweetDetailVM();
+            model.Tweet = _tweetService.GetByID(id);
+            model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID);
+            model.Comments = _commentService.GetDefault(x => x.TeewtID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+            model.LikeCount = _likeService.GetDefault(x => x.TeewtID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count;
+            model.CommentCount = _commentService.GetDefault(x => x.TeewtID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count;
+            model.Likes = _likeService.GetDefault(x => x.TeewtID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+
+            return View(model);
         }
     }
 
