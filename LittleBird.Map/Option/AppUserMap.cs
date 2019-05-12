@@ -19,7 +19,7 @@ namespace LittleBird.Map.Option
             Property(x => x.UserImage).IsOptional();
             Property(x => x.XSmallUserImage).IsOptional();
             Property(x => x.CruptedUserImage).IsOptional();
-            Property(x => x.UserName).HasMaxLength(50).IsRequired();
+            Property(x => x.UserName).HasMaxLength(50).IsOptional();
             Property(x => x.Password).HasMaxLength(50).IsRequired();
             Property(x => x.Bio).HasMaxLength(200).IsOptional();
             Property(x => x.FirstName).HasMaxLength(50).IsOptional();

@@ -1,9 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Show";
     Layout = "~/Areas/Member/Views/Shared/MemberLayoutPage.cshtml";
 }
-
 @model LittleBird.UI.Areas.Member.Models.VM.TweetDetailVM
 
 <section class="content">
@@ -19,11 +18,22 @@
                             <span class="description"> - @item.PublishDate</span>
                         </div>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body" id="articlelist">
+                        <img class="img-responsive pad" src="@Model.Tweet.ImagePath" alt="Photo">
+                        <p>@Model.Tweet.TweetContent</p>
+                        @if (!(Model.Tweet.Likes.Any(x => x.AppUser.UserName == User.Identity.Name)))
+                        {
+                            string elementID = "message" + Model.Tweet.ID;
+                            <button type="button" id="like" onclick="like('@Model.Tweet.ID')" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                            <span id="@elementID" style="display:none">Like you</span>
 
-
-
-
+                        }
+                        else
+                        {
+                            <label>Beğendin</label>
+                            <button type="button" id="like" onclick="like('@Model.Tweet.ID')" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                        }
+                        
                     </div>
                     <!-- Box Comment -->
                     <!-- /.box -->
@@ -126,4 +136,5 @@
     }
 
 </script>
+
 

@@ -7,7 +7,7 @@ namespace LittleBird.UI.Areas.Member.Models.DTO
 {
     public class AddTweetDTO
     {
-        public Guid id { get; set; }
+        public Guid ID{ get; set; }
         public string TweetContent { get; set; }
         public string ImagePath { get; set; }
         public DateTime? PublishDate { get; set; }

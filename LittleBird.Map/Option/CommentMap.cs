@@ -13,9 +13,17 @@ namespace LittleBird.Map.Option
         public CommentMap()
         {
             ToTable("dbo.Comments");
-            Property(x => x.Content).IsRequired();
+            Property(x => x.Content).IsOptional();
 
-            HasKey(x => new { x.AppUserID, x.TeewtID });
+            HasRequired(x => x.Tweet)
+               .WithMany(x => x.Comments)
+               .HasForeignKey(x => x.TweetID)
+               .WillCascadeOnDelete(false);
+
+            HasRequired(x => x.AppUser)
+                .WithMany(x => x.Comments)
+                .HasForeignKey(x => x.AppUserID)
+                .WillCascadeOnDelete(false);
         }
     }
 }

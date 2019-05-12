@@ -12,7 +12,7 @@ namespace LittleBird.Model.Option
         public Guid AppUserID { get; set; }
         public virtual AppUser AppUser { get; set; }
 
-        public Guid TeewtID { get; set; }
+        public Guid TweetID { get; set; }
         public virtual Tweet Tweet { get; set; }
     }
 }

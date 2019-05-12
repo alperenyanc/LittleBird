@@ -49,6 +49,7 @@ namespace LittleBird.UI.Areas.Member.Controllers
                 data.ImagePath = UploadedImagePaths[2];
             }
 
+
             AppUser user = _appUserService.GetByDefault(x => x.UserName == User.Identity.Name);
             data.AppUserID = user.ID;
             data.PublishDate = DateTime.Now;
@@ -70,7 +71,7 @@ namespace LittleBird.UI.Areas.Member.Controllers
             AddTweetDTO model = new AddTweetDTO();
             Tweet tweet = _tweetService.GetByID(id);
            
-            model.id= tweet.ID;
+            model.ID= tweet.ID;
         
             model.TweetContent = tweet.TweetContent;
             model.PublishDate = DateTime.Now;
@@ -89,7 +90,7 @@ namespace LittleBird.UI.Areas.Member.Controllers
 
             data.ImagePath = UploadedImagePaths[0];
 
-            Tweet update = _tweetService.GetByID(data.id);
+            Tweet update = _tweetService.GetByID(data.ID);
 
             if (data.ImagePath == "0" || data.ImagePath == "1" || data.ImagePath == "2")
             {
@@ -112,31 +113,45 @@ namespace LittleBird.UI.Areas.Member.Controllers
                 update.ImagePath = UploadedImagePaths[1];
                 update.ImagePath = UploadedImagePaths[2];
             }
+            Tweet tweet = _tweetService.GetByID(data.ID);
 
-            update.TweetContent = data.TweetContent;
-            update.PublishDate = data.PublishDate;
-            update.Status = Core.Enum.Status.Updated;
-            _tweetService.Add(update);
+            tweet.TweetContent = data.TweetContent;
+            tweet.PublishDate = data.PublishDate;
+            tweet.Status = Core.Enum.Status.Updated;
+            _tweetService.Update(tweet);
             return Redirect("/Member/Tweet/List");
         }
         public ActionResult Delete(Guid id)
         {
             _tweetService.Remove(id);
-            return Redirect("/Author/Article/List");
+            return Redirect("/Member/Tweet/List");
         }
-        public ActionResult Show(Guid id)
-        {
-            TweetDetailVM model = new TweetDetailVM();
-            model.Tweet = _tweetService.GetByID(id);
-            model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID);
-            model.Comments = _commentService.GetDefault(x => x.TeewtID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
-            model.LikeCount = _likeService.GetDefault(x => x.TeewtID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count;
-            model.CommentCount = _commentService.GetDefault(x => x.TeewtID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count;
-            model.Likes = _likeService.GetDefault(x => x.TeewtID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+        //public ActionResult Show(Guid id)
+        //{
+        //    TweetDetailVM model = new TweetDetailVM();
 
-            return View(model);
-        }
+        //    model.Tweets = _tweetService.GetActive();
+
+        //    foreach (var item in model.Tweets)
+        //    {
+        //        model.Comments = _commentService.GetDefault(x => x.TweetID == item.ID).OrderByDescending(x => x.CreatedDate).Take(10).ToList();
+
+        //        model.LikeCount = _likeService.GetDefault(x => x.TweetID == item.ID).Count();
+        //        model.CommentCount = _commentService.GetDefault(x => x.TweetID == item.ID).Count();
+        //    }
+
+
+
+        //    model.Tweet = _tweetService.GetByID(id);
+        //    model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID);
+        //    model.Comments = _commentService.GetDefault(x => x.TweetID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+        //    model.LikeCount = _likeService.GetDefault(x => x.TweetID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count;
+        //    model.CommentCount = _commentService.GetDefault(x => x.TweetID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count;
+        //    model.Likes = _likeService.GetDefault(x => x.TweetID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+
+        //    return View(model);
+       // }
     }
 
-        
+
 }

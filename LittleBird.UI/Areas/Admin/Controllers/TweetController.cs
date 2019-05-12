@@ -47,6 +47,7 @@ namespace LittleBird.UI.Areas.Admin.Controllers
                 data.ImagePath = UploadedImagePaths[2];
             }
 
+
             data.Status = Core.Enum.Status.Active;
             data.PublishDate = DateTime.Now;
             _tweetService.Add(data);
@@ -102,12 +103,12 @@ namespace LittleBird.UI.Areas.Admin.Controllers
                 update.ImagePath = UploadedImagePaths[1];
                 update.ImagePath = UploadedImagePaths[2];
             }
-
-            update.PublishDate = data.PublishDate;
-            update.TweetContent = data.TweetContent;
-            update.AppUserID = data.AppUserID;
-            update.Status = Core.Enum.Status.Updated;
-            _tweetService.Update(update);
+            Tweet tweet = _tweetService.GetByID(data.ID);
+            tweet.PublishDate = data.PublishDate;
+            tweet.TweetContent = data.TweetContent;
+            tweet.AppUserID = data.AppUserID;
+            tweet.Status = Core.Enum.Status.Updated;
+            _tweetService.Update(tweet);
 
             return Redirect("/Admin/Tweet/List");
 

@@ -13,7 +13,18 @@ namespace LittleBird.Map.Option
         public LikeMap()
 
         {
-            HasKey(x => new { x.AppUserID, x.TeewtID });
+            ToTable("dbo.Likes");
+
+            HasRequired(x => x.Tweet)
+                .WithMany(x => x.Likes)
+                .HasForeignKey(x => x.TweetID)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(x => x.AppUser)
+               .WithMany(x => x.Likes)
+               .HasForeignKey(x => x.AppUserID)
+               .WillCascadeOnDelete(false);
+            
         }
     }
 }

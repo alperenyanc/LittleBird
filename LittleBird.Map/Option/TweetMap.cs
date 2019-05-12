@@ -21,11 +21,11 @@ namespace LittleBird.Map.Option
                .WillCascadeOnDelete(false);
             HasMany(x => x.Likes)
                 .WithRequired(x => x.Tweet)
-                .HasForeignKey(x => x.TeewtID)
+                .HasForeignKey(x => x.TweetID)
             .WillCascadeOnDelete(false);
             HasMany(x => x.Comments)
                 .WithRequired(x => x.Tweet)
-                .HasForeignKey(x => x.TeewtID)
+                .HasForeignKey(x => x.TweetID)
             .WillCascadeOnDelete(false);
         }
     }

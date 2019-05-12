@@ -131,9 +131,13 @@
     <Compile Include="Areas\Member\Models\DTO\AddTweetDTO.cs" />
     <Compile Include="Areas\Member\Models\VM\JsonCommentLikeVM.cs" />
     <Compile Include="Areas\Member\Models\VM\TweetDetailVM.cs" />
+    <Compile Include="Authorize\UserAuthorize.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attributes\LoginControl.cs" />
+    <Compile Include="Models\VM\LoginVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,7 +157,6 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AppUser\Update.cshtml" />
     <Content Include="Areas\Admin\Views\AppUser\List.cshtml" />
     <Content Include="Areas\Admin\Views\Tweet\Add.cshtml" />
@@ -164,7 +167,10 @@
     <Content Include="Areas\Member\Views\Tweet\Add.cshtml" />
     <Content Include="Areas\Member\Views\Tweet\List.cshtml" />
     <Content Include="Areas\Member\Views\Tweet\Update.cshtml" />
+    <Content Include="Areas\Member\Views\Tweet\Show.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="packages.config" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -178,8 +184,6 @@
     <Folder Include="Areas\Member\Views\Comment\" />
     <Folder Include="Areas\Member\Views\Home\" />
     <Folder Include="Areas\Member\Views\Like\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LittleBird.Core\LittleBird.Core.csproj">
