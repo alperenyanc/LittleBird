@@ -134,8 +134,10 @@
     <Compile Include="Areas\Member\Controllers\TweetController.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
     <Compile Include="Areas\Member\Models\DTO\AddTweetDTO.cs" />
+    <Compile Include="Areas\Member\Models\VM\AddTweetVM.cs" />
     <Compile Include="Areas\Member\Models\VM\JsonCommentLikeVM.cs" />
     <Compile Include="Areas\Member\Models\VM\TweetDetailVM.cs" />
+    <Compile Include="Areas\Member\Models\VM\UpdateTweetVM.cs" />
     <Compile Include="Authorize\UserAuthorize.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Global.asax.cs">

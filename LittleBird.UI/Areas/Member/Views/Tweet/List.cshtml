@@ -4,126 +4,75 @@
     Layout = "~/Areas/Member/Views/Shared/MemberLayoutPage.cshtml";
 }
 
-@model LittleBird.UI.Areas.Member.Models.VM.TweetDetailVM
+@model List<LittleBird.Model.Option.Tweet>
 
+<script src="~/Content/js/dataTables.bootstrap.min.js"></script>
+<script src="~/Content/js/jquery.dataTables.min.js"></script>
+<link href="~/Content/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="/Admin/Article/Add">Add Article</a></li>
+        <li class="active">Article List</li>
+    </ol>
+</section>
+<br />
 <section class="content">
     <div class="row">
-        <div class="col-md-10">
-            @foreach (var item in Model.Tweets)
-            {
-                <div class="box box-widget">
-                    <div class="box-header with-border">
-                        <div class="user-block">
-                            <img class="img-circle" src="@item.AppUser.UserImage" alt="User Image">
-                            <span class="username"><a href="#">@item.AppUser.FirstName @item.AppUser.LastName</a></span>
-                            <span class="description"> - @item.PublishDate</span>
-                        </div>
-                    </div>
-                    <div class="box-body">
-
-
-
-
-                    </div>
-                    <!-- Box Comment -->
-                    <!-- /.box -->
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">List of Articles</h3>
                 </div>
-            }
-            <!-- /.col -->
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                             
+                                <th>TweetContent</th>
+                                <th>Publish Date</th>
+                                
+                                <th>User Name</th>
+                                <td>Image</td>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                            
+                                    <td>@item.TweetContent</td>
+                                    <td>@item.PublishDate</td>
+                                    
+                                    <td>@item.AppUser.UserName</td>
+                                    <td>
+                                        <img src="@item.ImagePath" style="display:block" width="75" height="75" />
+                                    </td>
+                                    <td><a href="/Member/Tweet/Update/@item.ID" type="button" class="btn btn-block btn-warning">Update</a></td>
+                                    <td><a href="/Member/Tweet/Delete/@item.ID" type="button" class="btn btn-block btn-danger">Delete</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-<script src="~/Content/js/jquery.min.js"></script>
 <script>
-
-    function commentdelete(id) {
-        $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("DeleteComment","Comment")/" + id,
-            success: function (result) {
-                $("#a_" + id).fadeOut();
-                    }
-                })
-        }
-
-        function like(id) {
-        $.ajax({
-                    type: "POST",
-                    dataType: "Json",
-                    url: "@Url.Action("AddLike","Like")/" + id,
-                    success: function (data) {
-                if (data.isSuccess == true) {
-                            $("#message" + id).removeAttr("");
-                            $("#like").remove();
-                            $("#message" + id).html("");
-                            $("#message" + id).append(data.userMessage);
-                    $("#commentcount").hide().fadeOut(2000);
-                    $("#articlelist").append("<span class='pull-right text-muted' id='commentcount'>" + data.Likes + " likes  " + data.Comments + " comments</span>");
-                        }
-                        else {
-                            $("#message" + id).removeAttr("");
-                            $("#like").remove();
-                            $("#message" + id).html("");
-                            $("#message" + id).append(data.userMessage);
-                        }
-                    }
-                })
-        }
-
-
-        function comment(articleID) {
-            console.log(articleID);
-            var commentText = $("#comment").val();
-
-            $.ajax({
-                    type: "POST",
-                    dataType: "Json",
-                    data: { userComment: commentText, id: articleID },
-                    url: "@Url.Action("AddComment","Comment")",
-                    success: function (data) {
-                        if (data == true) {
-                            $("#message").removeAttr("style");
-                            $("#message").html("");
-                            $("#message").append("Have Comments.").fadeIn(2000);
-
-                            // Commentlerin hepsini silip tekrar listelemeyle geri çekmek gerekiyor.
-
-                            commentdynamiclist(articleID);
-
-                        }
-                        else {
-                            $("#message").removeAttr("style");
-                            $("#message").html("");
-                            $("#message").append("An error has occured.");
-                        }
-                    }
-                })
-    }
-
-        function commentdynamiclist(id) {
-
-            $.ajax({
-                type: "POST",
-                dataType: "Json",
-                url: "@Url.Action("GetAtricleComment", "Comment")/" + id,
-                success: function (data) {
-                    if (data != null) {
-
-                        //console.log(data.FirstName);
-                        $("#dynamiccomment").append("<div class='box-comment' id='lastcomment'><!-- User image --><img class='img-circle img-sm' src='" + data.AppUserImagePath + "' alt='User Image'><div class='comment-text'><span class='username'>" + data.FirstName + " " + data.LastName + "<span class='text-muted pull-right'>" + data.CreatedDate + "<br /><a href='' id='commentdelete' type='button' class='btn btn-default btn-xs'><i class='fa fa-trash-o'></i></a><button type='button' id='edit' class='btn btn-default btn-xs'><i class='fa fa-edit'></i></button></span></span><!-- /.username -->" + data.Content + "</div></div>");
-                        $("#commentcount").hide().fadeOut(2000);
-                        $("#articlelist").append("<span class='pull-right text-muted' id='commentcount'>"+data.LikeCount+" likes  "+data.CommentCount+" comments</span>");
-                        $("#comment").val("");
-                        $("#message").fadeOut(2000);
-                        $("#lastcomment").hide().fadeIn(2000);
-
-                    }
-                    else {
-
-                    }
-                }
-            })
-    }
-
+    $(function () {
+        $('#example1').DataTable()
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    })
 </script>
-
