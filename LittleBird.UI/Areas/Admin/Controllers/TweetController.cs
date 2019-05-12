@@ -1,6 +1,7 @@
 ﻿using LittleBird.Model.Option;
 using LittleBird.Service.Option;
 using LittleBird.UI.Areas.Admin.Models.DTO;
+using LittleBird.UI.Areas.Admin.Models.VM;
 using LittleBird.Utility;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,13 @@ namespace LittleBird.UI.Areas.Admin.Controllers
         }
         public ActionResult Add()
         {
-            return View();
+            AddTweetVM model = new AddTweetVM()
+            {
+                AppUsers = _appUserService.GetDefault(x => x.Role==Role.Member)
+            };
+           
+           
+            return View(model);
         }
         [HttpPost]
         public ActionResult Add(Tweet data, HttpPostedFileBase Image)
@@ -57,20 +64,22 @@ namespace LittleBird.UI.Areas.Admin.Controllers
         public ActionResult List()
         {
             List<Tweet> model = _tweetService.GetActive();
-            return Redirect("/Admin/Tweet/List");
+            return View(model);
         }
         public ActionResult Update(Guid id)
         {
             Tweet tweet = _tweetService.GetByID(id);
-            TweetDTO model = new TweetDTO();
-            model.id = tweet.ID;
-            model.ImagePath = tweet.ImagePath;
-            model.TweetContent = tweet.TweetContent;
-            model.PublishDate = DateTime.Now;
+            UpdateTweetVM model = new UpdateTweetVM();
+            model.Tweet.ID = tweet.ID;
+            model.Tweet.ImagePath = tweet.ImagePath;
+            model.Tweet.TweetContent = tweet.TweetContent;
+            model.Tweet.PublishDate = DateTime.Now;
+            List<AppUser> appusermodel = _appUserService.GetDefault(x => x.Role == Role.Member);
+            model.AppUsers = appusermodel;
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(Tweet data, HttpPostedFileBase Image)
+        public ActionResult Update(TweetDTO data, HttpPostedFileBase Image)
         {
 
             List<string> UploadedImagePaths = new List<string>();

@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/Admin.cshtml";
 }
 
-
+@model LittleBird.UI.Areas.Admin.Models.VM.AddTweetVM
 
 <section class="content-header">
     <ol class="breadcrumb">
@@ -26,14 +26,23 @@
                 <!-- form start -->
                 <form action="/Admin/Tweet/Add" method="post" role="form" enctype="multipart/form-data">
                     <div class="box-body">
-                       
+
                         <div class="form-group">
-                            <label for="Content">Content</label>
-                            <input type="text" name="Content" class="form-control" placeholder="Content">
+                            <label for="TweetContent">Content</label>
+                            <input type="text" name="TweetContent" class="form-control" placeholder="TweetContent">
                         </div>
-                       
-                        
-                       
+                        <div class="form-group">
+                            <label for="AppUserID">Member</label>
+                            <select name="AppUserID" class="form-control">
+                                @foreach (var item in Model.AppUsers)
+                                {
+                                    <option value="@item.ID">@item.UserName</option>
+                                }
+                            </select>
+                        </div>
+
+
+
                         <div class="form-group">
                             <label for="Image">Image</label>
                             <input type="file" name="Image" value="" class="form-control" />

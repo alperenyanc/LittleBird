@@ -13,10 +13,12 @@ namespace LittleBird.Model.Option
         public string ImagePath { get; set; }
         public DateTime? PublishDate { get; set; }
 
-        public virtual List<Comment> Comments { get; set; }
-        public virtual List<Like> Likes { get; set; }
-
         public Guid AppUserID { get; set; }
         public virtual AppUser AppUser { get; set; }
+
+
+
+        public virtual List<Comment> Comments { get; set; }
+        public virtual List<Like> Likes { get; set; }
     }
 }

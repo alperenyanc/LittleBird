@@ -96,6 +96,7 @@
   <ItemGroup>
     <Content Include="Content\css\AdminLTE.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\dataTables.bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\ionicons.min.css" />
     <Content Include="Content\css\_all-skins.min.css" />
@@ -105,8 +106,10 @@
     <Content Include="Content\ima\twitter-logo-450x345jpg.jpg" />
     <Content Include="Content\js\adminlte.min.js" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\dataTables.bootstrap.min.js" />
     <Content Include="Content\js\demo.js" />
     <Content Include="Content\js\fastclick.js" />
+    <Content Include="Content\js\jquery.dataTables.min.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\jquery.slimscroll.min.js" />
     <Content Include="Content\Uploads\UserImage\CruptedImages\kaan.jpg" />
@@ -123,6 +126,8 @@
     <Compile Include="Areas\Admin\Controllers\TweetController.cs" />
     <Compile Include="Areas\Admin\Models\DTO\AppUserDTO.cs" />
     <Compile Include="Areas\Admin\Models\DTO\TweetDTO.cs" />
+    <Compile Include="Areas\Admin\Models\VM\AddTweetVM.cs" />
+    <Compile Include="Areas\Admin\Models\VM\UpdateTweetVM.cs" />
     <Compile Include="Areas\Member\Controllers\CommentController.cs" />
     <Compile Include="Areas\Member\Controllers\HomeController.cs" />
     <Compile Include="Areas\Member\Controllers\LikeController.cs" />
@@ -180,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\VM\" />
     <Folder Include="Areas\Member\Views\Comment\" />
     <Folder Include="Areas\Member\Views\Home\" />
     <Folder Include="Areas\Member\Views\Like\" />
