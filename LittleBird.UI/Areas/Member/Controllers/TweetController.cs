@@ -26,7 +26,10 @@ namespace LittleBird.UI.Areas.Member.Controllers
         }
         public ActionResult Add()
         {
-            return View();
+            Guid userID = _appUserService.FindByUserName(User.Identity.Name).ID;
+            List<Tweet> model = _tweetService.GetDefault(x => x.AppUserID == userID && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+            return View(model);
+           
         }
         [HttpPost]
         public ActionResult Add(Tweet data, HttpPostedFileBase Image)
@@ -56,11 +59,19 @@ namespace LittleBird.UI.Areas.Member.Controllers
 
             _tweetService.Add(data);
 
-            return Redirect("/Member/Tweet/List");
+
+            return Redirect("/Member/Tweet/Add");
 
 
         }
+        [HttpPost]
         public ActionResult List()
+        {
+            Guid userID = _appUserService.FindByUserName(User.Identity.Name).ID;
+            List<Tweet> model = _tweetService.GetDefault(x => x.AppUserID == userID && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+            return View(model);
+        }
+        public ActionResult List2()
         {
             Guid userID = _appUserService.FindByUserName(User.Identity.Name).ID;
             List<Tweet> model = _tweetService.GetDefault(x => x.AppUserID == userID && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));

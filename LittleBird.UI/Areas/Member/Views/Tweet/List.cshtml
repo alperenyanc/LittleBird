@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "List";
-    Layout = "~/Areas/Member/Views/Shared/MemberLayoutPage.cshtml";
+    Layout = "~/Areas/Member/Views/Shared/denemeprofillayoutpage.cshtml";
 }
 
 @model List<LittleBird.Model.Option.Tweet>
@@ -12,9 +12,9 @@
 
 <section class="content-header">
     <ol class="breadcrumb">
-        <li><a href="/Admin/Home/Index"><i class="fa fa-home"></i> Home</a></li>
-        <li><a href="/Admin/Article/Add">Add Article</a></li>
-        <li class="active">Article List</li>
+        <li><a href="/Member/Home/show"><i class="fa fa-home"></i> Time line</a></li>
+        <li><a href="/Member/Tweet/Add">MyTweet Page</a></li>
+        <li class="active">Tweet List</li>
     </ol>
 </section>
 <br />
@@ -23,7 +23,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">List of Articles</h3>
+                    <h3 class="box-title">My Tweet Page</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

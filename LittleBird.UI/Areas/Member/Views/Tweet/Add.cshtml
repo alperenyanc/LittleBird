@@ -1,17 +1,72 @@
 ﻿
 @{
     ViewBag.Title = "Add";
-    Layout = "~/Areas/Member/Views/Shared/MemberLayoutPage.cshtml";
+    ViewBag.Title = "List";
+    Layout = "~/Areas/Member/Views/Shared/denemeprofillayoutpage.cshtml";
 }
 
+@model List<LittleBird.Model.Option.Tweet>
 
+<script src="~/Content/js/dataTables.bootstrap.min.js"></script>
+<script src="~/Content/js/jquery.dataTables.min.js"></script>
+<link href="~/Content/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 
 <section class="content-header">
     <ol class="breadcrumb">
         <li><a href="/Member/Home/Index"><i class="fa fa-home"></i> Home</a></li>
         <li><a href="/Member/Tweet/List">Article List</a></li>
+        <li><a href="/Member/Tweet/List2">myprofil kankam</a></li>
         <li class="active">Add Tweet</li>
     </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">My Tweet Page</h3>
+                </div>
+                <a href="~/Areas/Member/Views/Tweet/List.cshtml"></a>
+                <form action="/Member/Tweet/List"  role="form" enctype="multipart/form-data">
+                    <!-- /.box-header -->
+
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>TweetContent</th>
+                                    <th>Publish Date</th>
+
+                                    <th>User Name</th>
+                                    <td>Image</td>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        
+                                        <td>@item.TweetContent</td>
+                                        <td>@item.PublishDate</td>
+
+                                        <td>@item.AppUser.UserName</td>
+                                        <td>
+                                            <img src="@item.ImagePath" style="display:block" width="75" height="75" />
+                                        </td>
+                                        <td><a href="/Member/Tweet/Update/@item.ID" type="button" class="btn btn-block btn-warning">Update</a></td>
+                                        <td><a href="/Member/Tweet/Delete/@item.ID" type="button" class="btn btn-block btn-danger">Delete</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>
 <section class="content">
     <div class="row">
@@ -22,17 +77,19 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Add Tweet</h3>
                 </div>
+
                 <!-- /.box-header -->
                 <!-- form start -->
+                <a href="~/Areas/Member/Views/Tweet/Add.cshtml"></a>
                 <form action="/Member/Tweet/Add" method="post" role="form" enctype="multipart/form-data">
                     <div class="box-body">
-                       
+
                         <div class="form-group">
                             <label for="TweetContent">TweetContent</label>
                             <input type="text" name="TweetContent" class="form-control" placeholder="TweetContent">
                         </div>
-                        
-                        
+
+
                         <div class="form-group">
                             <label for="Image">Image</label>
                             <input type="file" name="Image" value="" class="form-control" />
@@ -46,3 +103,101 @@
         </div>
     </div>
 </section>
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-3">
+
+            <!-- Profile Image -->
+           
+            <!-- /.box -->
+            <!-- About Me Box -->
+          
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class=""><a href="#activity" data-toggle="tab" aria-expanded="false">Activity</a></li>
+                    
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" id="activity">
+                        <!-- Post -->
+                        @foreach (var item in Model)
+                        {
+                            <div class="post">
+                                <div class="user-block">
+
+
+
+                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+
+                                    <span class="description">Shared publicly - 7:30 PM today</span>
+                                </div>
+                                <!-- /.user-block -->
+                                <p>
+                                    @item.TweetContent
+                                    <td>@item.TweetContent</td>
+                                    ALp Eren
+
+                                </p>
+                                <ul class="list-inline">
+                                    <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
+                                    <li>
+                                        <a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                    </li>
+                                    <li class="pull-right">
+                                        <a href="#" class="link-black text-sm">
+                                            <i class="fa fa-comments-o margin-r-5"></i> Comments
+                                            (5)
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <input class="form-control input-sm" type="text" placeholder="Type a comment">
+                            </div>
+                        }
+
+                        <!-- /.post -->
+                        <!-- Post -->
+                        <!-- /.post -->
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane active" id="timeline">
+                        <!-- The timeline -->
+                       
+                    </div>
+                    <!-- /.tab-pane -->
+
+                    
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+</section>
+
+<script>
+
+
+
+    $(function () {
+        $('#example1').DataTable()
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    })
+</script>

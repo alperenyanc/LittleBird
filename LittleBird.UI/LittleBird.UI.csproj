@@ -176,6 +176,9 @@
     <Content Include="Areas\Member\Views\Tweet\Update.cshtml" />
     <Content Include="Areas\Member\Views\Tweet\Show.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Shared\denemeprofillayoutpage.cshtml" />
+    <Content Include="Areas\Member\Views\Tweet\List2.cshtml" />
+    <Content Include="Areas\Member\Views\Tweet\qwe.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
