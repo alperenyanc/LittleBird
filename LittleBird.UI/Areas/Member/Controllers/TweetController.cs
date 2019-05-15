@@ -135,7 +135,7 @@ namespace LittleBird.UI.Areas.Member.Controllers
         public ActionResult Delete(Guid id)
         {
             _tweetService.Remove(id);
-            return Redirect("/Member/Tweet/List");
+            return Redirect("/Member/Tweet/Add");
         }
         //public ActionResult Show(Guid id)
         //{
